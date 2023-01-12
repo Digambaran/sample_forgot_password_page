@@ -21,7 +21,8 @@ const ErrorMsg = ({ msg }) => <span className="text-error text-[11px] pt-2 font-
 const SuccessMsg = ({ msg }) => <span className="text-success text-[11px] pt-2 font-medium ">{msg}</span>;
 
 export const Sample_forgot_password_page = () => {
-  const forgotPasswordApi = `${process.env.BLOCK_FUNCTION_URL || "http://localhost:5000"}/sample_forgot_password_fn`;
+  const forgotPasswordApi = process.env.FORGOT_PASSWORD_API || `http://localhost:5000/sample_forgot_password_fn`;
+  const forgotPasswordPageUrl = process.env.FORGOT_PASSWORD_PAGE_URL || "http://localhost:4011";
 
   const [emailsent, setEmailSent] = useState(false);
   const [seconds, setSeconds] = useState(30);
@@ -114,7 +115,7 @@ export const Sample_forgot_password_page = () => {
                         seconds === 0,
                       "inline-block text-gray underline underline-offset-4": seconds > 0,
                     })}
-                    href={emailsent && !seconds ? "http://localhost:4011" : undefined}
+                    href={emailsent && !seconds ? forgotPasswordPageUrl : undefined}
                   >
                     &nbsp; Request new link {emailsent && seconds !== 0 && `in ${seconds}s`}
                   </a>
